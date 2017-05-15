@@ -1,43 +1,32 @@
 [
-   [
 	 {
 	   "url":"picture1.jpg",
-     "title": "title of picture1",
+     "title": "picture 1",
 	   "extent":"[-77.27, 39.87, -77.20, 39.77]"
-	 }
-   ],
+	 },
 
-   [
 	 {
 	   "url":"picture2.jpg",
-     "title" : "title of picture2",
-     "extent" : "[-77.27, 39.85, -77.21, 39.80]"
+     "title": "picture 2",
+     "extent": "[-77.27, 39.85, -77.21, 39.80]"
 
-	 }
-   ],
+	 },
 
-   [
 	 {
 	   "url":"picture3.jpg",
-     "title" : "title of picture3",
+     "title": "picture 3",
      "extent":"[-77.27, 39.85, -77.19, 39.78]"
-	 }
-   ],
+	 },
 
-   [
 	 {
 	   "url":"picture4",
-     "title" : "title of picture4",
+     "title": "picture 4",
      "extent":"[-77.27, 39.85, -77.21, 39.77]"
-	 }
-   ],
+	 },
 
-   [
 	 {
 	   "url":"picture5",
-     "title": "title of picture5",
+     "title": "picture 5",
      "extent":"[-77.27, 39.86, -77.19, 39.77]"
 	 }
-   ],
-
 ]
