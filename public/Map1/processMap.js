@@ -2,168 +2,156 @@ var myMap
 
 function saveTiles(tiles)
 {
-    var picLayers = new Array(2)
-	picLayers[0]  = null
-	picLayers[1] = null
-	var myTiles = tiles;
-	var innerMap = new ol.Map({
-		target: 'map',
-		layers: tiles[0],
-		view: new ol.View({
-			center: ol.proj.transform([-77.23, 39.83], 'EPSG:4326', 'EPSG:3857'),
-			zoom: 13,
-			extent:  ol.proj.transformExtent([-77.14, 39.75, -77.26, 39.90],  'EPSG:4326', 'EPSG:3857'),
-			maxZoom: 18.0,
-			minZoom: 12.0
-		})
-	});
+    var selectPicture = new Array(2)
+    selectPicture[0]  = null
+    selectPicture[1] = null
+    var myTiles = tiles;
+    var baseMap = new ol.Map({
+      target: 'map',
+      layers: tiles[0],
+      view: new ol.View({
+        center: ol.proj.transform([-77.23, 39.83], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 13,
+        extent:  ol.proj.transformExtent([-77.14, 39.75, -77.26, 39.90],  'EPSG:4326', 'EPSG:3857'),
+        maxZoom: 18.0,
+        minZoom: 12.0
+      })
+    });
 
-	this.display = function (layer) {
+    this.display = function (layer) {
+      layers=baseMap.getLayers().getArray()
+      var length=layers.length
+      for (i=0;i<length;i++) {
+      baseMap.removeLayer(layers[0])
+      }
 
-		layers=innerMap.getLayers().getArray()
-		var length=layers.length
-		for (i=0;i<length;i++) {
-			innerMap.removeLayer(layers[0])
-		}
+      for (a=0;a<myTiles[layer].length;a++)
+        baseMap.addLayer(myTiles[layer][a])
 
-        for (a=0;a<myTiles[layer].length;a++)
-            innerMap.addLayer(myTiles[layer][a])
+      for (var i = 0; i < selectPicture.length; i++) {
+        if (selectPicture[i] != null) {
+          baseMap.addLayer(selectPicture[i])
+        }
+      }
+    }
 
-		for (var i = 0; i < picLayers.length; i++) {
-			if (picLayers[i] != null) {
-				innerMap.addLayer(picLayers[i])
-			}
-		}
-	}
+    this.getbaseMap = function() {
+      return myMap;
+    }
 
-	this.getInnerMap = function() {
-		return myMap;
-	}
+    this.changeOpacity = function(section, opacity) {
+      selectPicture[section].setOpacity(opacity)
+    }
 
-	this.changeOpacity = function(pLayer, opacity) {
-		picLayers[pLayer].setOpacity(opacity)
-	}
-
-    this.changePicture = function(pLayer, picNum) {
-		for (var j = 0; j < picLayers.length; j++) {
-			if (picLayers[j] != null) {
-				innerMap.removeLayer(picLayers[j])
-			}
-		}
-
-		picLayers[pLayer] = pictureLayers[picNum]
-
-		for (var k = 0; k < picLayers.length; k++) {
-			if (picLayers[k] != null) {
-				innerMap.addLayer(picLayers[k])
-			}
-		}
-		picLayer[pLayer].setOpacity(100)
-	}
-
-	return this;
-}
+    this.changePicture = function(section, picNum) {
+      for (var j = 0; j < selectPicture.length; j++) {
+        if (selectPicture[j] != null) {
+          baseMap.removeLayer(selectPicture[j])
+        }
+    }
+      selectPicture[section] = pictureLayers[picNum]
+      for (var k = 0; k < selectPicture.length; k++) {
+        if (selectPicture[k] != null) {
+          baseMap.addLayer(selectPicture[k])
+        }
+      }
+      picLayer[section].setOpacity(100)
+    }
+      return this;
+    }
 
 
-function StamenMap (options) {
-    var label = options["label"]
-	var tl = new ol.layer.Tile({
-		source: new ol.source.Stamen({
-            layer: label
+    function StamenMap (options) {
+        var label = options["label"]
+        var tl = new ol.layer.Tile({
+          source: new ol.source.Stamen({
+                  layer: label
+                })
         })
-    })
-	return tl;
-}
+        return tl;
+    }
 
-function XYZMap(options) {
-	var myUrl=options["url"]
-	var tl=new ol.layer.Tile({
-		source: new ol.source.XYZ({
-			url: myUrl,
-			opacity: true
-		})
-	})
-	return tl;
-}
+    function XYZMap(options) {
+      var myUrl=options["url"]
+      var tl=new ol.layer.Tile({
+        source: new ol.source.XYZ({
+          url: myUrl,
+          opacity: true
+        })
+      })
+      return tl;
+    }
 
-fucntion PictureMap(options) {
-  var myUrl = options["url"]
-  var myExtent = options["extent"]
-  var image = new ol.layer.Image({
-    source: new ol.source.ImageStatic({
-      url: myurl,
-      imageExtent: ol.proj.transformExtent(extent, 'EPSG:4326', 'EPSG:3857')
-    })
-  })
-  return image;
-}
+    function PictureMap(options) {
+      var myUrl = options["url"]
+      var t1 = new ol.layer.Image({
+        source: new ol.source.ImageStatic({
+          url: myUrl,
+          opacity: true
+        })
+      })
+      return t1;
+    }
 
-/*
-This function reads the object parsed from JSON.  Since JSON does not
-maintain the obj.constructor property, I create an instance of the
-specific object type (stored in instanceType) and copy the fields
-into this new object.  This "effectively" casts the object to the correct
-type.
-*/
-function getPicturesFromJSON(string) {
-  var pictures = new Array()
-  parsedArray = JSON.parse(string)
-  var length = parsedArray.length
-  for (var i = 0; i<length; i++) {
-    pic=parsedArray.url
-    pictures[i] = window[pic](parsedArray[i])
-  }
-  return pictures
-}
+    /*
+    This function reads the object parsed from JSON.  Since JSON does not
+    maintain the obj.constructor property, I create an instance of the
+    specific object type (stored in instanceType) and copy the fields
+    into this new object.  This "effectively" casts the object to the correct
+    type.
+    */
+    function getPicturesFromJSON(string) {
+      var pictures = new Array()
+      parsedArray = JSON.parse(string)
+      var length = parsedArray.length
+      for (var i = 0; i<length; i++) {
+        pictures[i] = PictureMap(parsedArray[i])
+      }
+      return pictures
+    }
 
-function getMapsFromJSON(string) {
-	var maps = new Array()
-	parsedArray = JSON.parse(string)
-	var len1 = parsedArray.length
-	for (var i = 0; i < len1; i++)
-	{
-		maps[i] = new Array()
-		var len2 = parsedArray[i].length
-		for (var j = 0; j < len2; j++)
-	    {
-			objType=parsedArray[i][j].instanceType
-			maps[i][j] = window[objType](parsedArray[i][j])
-		}
-	}
-return maps
+    function getMapsFromJSON(string) {
+      var maps = new Array()
+      parsedArray = JSON.parse(string)
+      var len1 = parsedArray.length
+      for (var i = 0; i < len1; i++){
+        maps[i] = new Array()
+        var len2 = parsedArray[i].length
+        for (var j = 0; j < len2; j++){
+            objType=parsedArray[i][j].instanceType
+            maps[i][j] = window[objType](parsedArray[i][j])
+          }
+      }
+      return maps
 }
 
 function readPictureFile(file) {
   var rawFile = new XMLHttpRequest();
+  var url;
   rawFile.open("GET", file, true);
   rawFile.onreadystatechange = function () {
     if(rawFile.readyState === 4) {
       if(rawFile.status === 200 || rawFile.status == 0){
         var allText = rawFile.responseText;
-        var url = getPicturesFromJSON(allText)
-
+        url = getPicturesFromJSON(allText)
+        return url;
       }
     }
   }
-  rawFile.send(url);
+  rawFile.send();
 }
 
-function readMapFile(file)
-{
+function readMapFile(file){
     var rawFile = new XMLHttpRequest();
-	rawFile.open("GET", file, true);
-	rawFile.onreadystatechange = function ()
-	{
-		if(rawFile.readyState === 4)
-		{
-			if(rawFile.status === 200 || rawFile.status == 0)
-			{
-				var allText = rawFile.responseText;
-				var tiles = getMapsFromJSON(allText)
-				myMap = saveTiles(tiles)
-			}
-		}
-
-	}
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function (){
+      if(rawFile.readyState === 4){
+        if(rawFile.status === 200 || rawFile.status == 0){
+          var allText = rawFile.responseText;
+          var tiles = getMapsFromJSON(allText)
+          myMap = saveTiles(tiles)
+        }
+      }
+    }
     rawFile.send();
 }

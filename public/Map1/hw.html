@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,58 +9,11 @@
       }
     </style>
     <script src="https://openlayers.org/en/v3.20.1/build/ol.js" type="text/javascript"></script>
-
     <script src="processMap.js" type="text/javascript"></script>
     <title>OpenLayers 3 example</title>
     <script>
-      pictureLayers=new Array(5)
-      /**
-      pictureUpperLeft = [-77.27, 39.86]
-      deltaX = .13
-      ratioXtoY = .865
-      pictureExtent = [pictureUpperLeft[0], pictureUpperLeft[1], pictureUpperLeft[0] + deltaX,
-                         pictureUpperLeft[1] - (deltaX * ratioXtoY)]
-      */
-      pictureLayers[0] = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-                url: 'picture1.jpg',
-                imageExtent: ol.proj.transformExtent([-77.27, 39.87, -77.20, 39.77], 'EPSG:4326','EPSG:3857')
-        }),
-      })
-
-      pictureLayers[1] = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-                url: 'picture2.jpg',
-                imageExtent: ol.proj.transformExtent([-77.27, 39.85, -77.21, 39.80], 'EPSG:4326','EPSG:3857')
-        }),
-      })
-
-
-      pictureLayers[2] = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-                url: 'picture3.jpg',
-                imageExtent: ol.proj.transformExtent([-77.27, 39.85, -77.19, 39.78], 'EPSG:4326','EPSG:3857')
-        }),
-      })
-
-      pictureLayers[3] = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-                url: 'picture4.jpg',
-                imageExtent: ol.proj.transformExtent([-77.27, 39.85, -77.21, 39.77], 'EPSG:4326','EPSG:3857')
-        }),
-      })
-
-      pictureLayers[4] = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-                url: 'picture5.jpg',
-                imageExtent: ol.proj.transformExtent([-77.27, 39.86, -77.19, 39.77], 'EPSG:4326','EPSG:3857')
-        }),
-      })
-
-
-
-    tileLayers=readMapFile("map.json")
-    pictureLayers=readPictureFile("pictures.json")
+    pictureLayers = readPictureFile("pictures.json")
+    tileLayers = readMapFile("map.json")
     // myLayers=saveTiles(tileLayers)
 
     function changeOpacity1() {
@@ -74,15 +26,11 @@
        opacityValue2 = document.getElementById("newOpacity2").value/100
        myMap.changeOpacity(1,opacityValue2)
     }
-
-
-
+    //TODO
     a=1
-
-
     function togglePicture() {
        pictures = document.getElementsByName('pic')
-       for (i=0;i<pictures.length;i++) {
+       for (var i=0;i<pictures.length;i++) {
            if (pictures[i].checked) {
                myMap.changePicture(0,i)
                document.getElementById('newOpacity1').value=100
@@ -96,9 +44,7 @@
           }
        }
     }
-
-
-
+    //TODO
     c=4
     function togglePicture2() {
 
@@ -116,12 +62,8 @@
                document.getElementById("input"+d).style="color:black"
           }
        }
-
     }
-
-
     </script>
-
   </head>
   <body>
     <h2>My Map</h2>
