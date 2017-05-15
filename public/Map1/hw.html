@@ -1,0 +1,181 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://openlayers.org/en/v3.20.1/build/ol.js" type="text/javascript"></script>
+
+    <script src="processMap.js" type="text/javascript"></script>
+    <title>OpenLayers 3 example</title>
+    <script>
+      pictureLayers=new Array(5)
+      /**
+      pictureUpperLeft = [-77.27, 39.86]
+      deltaX = .13
+      ratioXtoY = .865
+      pictureExtent = [pictureUpperLeft[0], pictureUpperLeft[1], pictureUpperLeft[0] + deltaX,
+                         pictureUpperLeft[1] - (deltaX * ratioXtoY)]
+      */
+      pictureLayers[0] = new ol.layer.Image({
+        source: new ol.source.ImageStatic({
+                url: 'picture1.jpg',
+                imageExtent: ol.proj.transformExtent([-77.27, 39.87, -77.20, 39.77], 'EPSG:4326','EPSG:3857')
+        }),
+      })
+
+      pictureLayers[1] = new ol.layer.Image({
+        source: new ol.source.ImageStatic({
+                url: 'picture2.jpg',
+                imageExtent: ol.proj.transformExtent([-77.27, 39.85, -77.21, 39.80], 'EPSG:4326','EPSG:3857')
+        }),
+      })
+
+
+      pictureLayers[2] = new ol.layer.Image({
+        source: new ol.source.ImageStatic({
+                url: 'picture3.jpg',
+                imageExtent: ol.proj.transformExtent([-77.27, 39.85, -77.19, 39.78], 'EPSG:4326','EPSG:3857')
+        }),
+      })
+
+      pictureLayers[3] = new ol.layer.Image({
+        source: new ol.source.ImageStatic({
+                url: 'picture4.jpg',
+                imageExtent: ol.proj.transformExtent([-77.27, 39.85, -77.21, 39.77], 'EPSG:4326','EPSG:3857')
+        }),
+      })
+
+      pictureLayers[4] = new ol.layer.Image({
+        source: new ol.source.ImageStatic({
+                url: 'picture5.jpg',
+                imageExtent: ol.proj.transformExtent([-77.27, 39.86, -77.19, 39.77], 'EPSG:4326','EPSG:3857')
+        }),
+      })
+
+
+
+    tileLayers=readMapFile("map.json")
+    pictureLayers=readPictureFile("pictures.json")
+    // myLayers=saveTiles(tileLayers)
+
+    function changeOpacity1() {
+       opacityValue1 = document.getElementById("newOpacity1").value/100
+       myMap.changeOpacity(0,opacityValue1)
+
+    }
+
+    function changeOpacity2() {
+       opacityValue2 = document.getElementById("newOpacity2").value/100
+       myMap.changeOpacity(1,opacityValue2)
+    }
+
+
+
+    a=1
+
+
+    function togglePicture() {
+       pictures = document.getElementsByName('pic')
+       for (i=0;i<pictures.length;i++) {
+           if (pictures[i].checked) {
+               myMap.changePicture(0,i)
+               document.getElementById('newOpacity1').value=100
+               b=a
+               a=i+6
+               document.getElementById("picture"+a).checked = false
+               document.getElementById("input"+a).style="color:lightgray"
+               document.getElementById("picture"+a).disabled=true
+               document.getElementById("picture"+b).disabled=false
+               document.getElementById("input"+b).style="color:black"
+          }
+       }
+    }
+
+
+
+    c=4
+    function togglePicture2() {
+
+       pictures2 = document.getElementsByName('pic2')
+       for (i=0;i<pictures2.length;i++) {
+           if (pictures2[i].checked) {
+               myMap.changePicture(1,i)
+               document.getElementById('newOpacity2').value=100
+               d=c
+               c=i+1
+               document.getElementById("picture"+c).checked = false
+               document.getElementById("input"+c).style="color:lightgray"
+               document.getElementById("picture"+c).disabled=true
+               document.getElementById("picture"+d).disabled=false
+               document.getElementById("input"+d).style="color:black"
+          }
+       }
+
+    }
+
+
+    </script>
+
+  </head>
+  <body>
+    <h2>My Map</h2>
+    <div id="chooseBaseMap" class="chooseMap" style="display: inline-block; text-align: middle; vertical-align:top">
+       Select the base map: <BR>
+       <input type='radio' name = "base" id='base1' checked onClick="myMap.display(0);" /> Base Map 1<br>
+       <input type='radio' name = "base" id='base2' onClick="myMap.display(1);" /> Base Map 2<br>
+       <input type='radio' name = "base" id='base3' onClick="myMap.display(2);" /> Base Map 3<br>
+       <input type='radio' name = "base" id='base4' onClick="myMap.display(3);" /> Base Map 4<br>
+    </div>
+    <div name="Map1" id="chooseMap1" class="chooseMap1" style="display: inline-block; text-align: middle; vertical-align:top">
+       Select map: <BR>
+       <div id="input1" >
+       <input type='radio' name = "pic" id='picture1' onClick="togglePicture();" /> Picture 1<br>
+       </div>
+       <div id="input2" >
+       <input type='radio' name = "pic" id='picture2' onClick="togglePicture();" /> Picture 2<br>
+       </div>
+       <div id="input3" >
+       <input type='radio' name = "pic" id='picture3' onClick="togglePicture();" /> Picture 3<br>
+       </div>
+       <div id="input4" >
+       <input type='radio' name = "pic" id='picture4' onClick="togglePicture();" /> Picture 4<br>
+       </div>
+       <div id="input5" >
+       <input type='radio' name = "pic" id='picture5' onClick="togglePicture();" /> Picture 5<br>
+       </div>
+       Opacity <br />
+       <input type="range" id="newOpacity1" value="100" min="0" max="100" onChange="changeOpacity1()" /><BR />
+    </div>
+    <div name="Map2" id="chooseMap2" class="chooseMap2" style="display: inline-block; text-align: middle; vertical-align:top">
+       Select map: <BR>
+       <div id="input6" >
+       <input type='radio' name = "pic2" id='picture6' onClick="togglePicture2();" /> Picture 1<br>
+       </div>
+       <div id="input7" >
+       <input type='radio' name = "pic2" id='picture7' onClick="togglePicture2();" /> Picture 2<br>
+       </div>
+       <div id="input8" >
+       <input type='radio' name = "pic2" id='picture8' onClick="togglePicture2();" /> Picture 3<br>
+       </div>
+       <div id="input9" >
+       <input type='radio' name = "pic2" id='picture9' onClick="togglePicture2();" /> Picture 4<br>
+       </div>
+       <div id="input10" >
+       <input type='radio' name = "pic2" id='picture10' onClick="togglePicture2();" /> Picture 5<br>
+       </div>
+       Opacity <br />
+       <input type="range" id="newOpacity2" value="100" min="0" max="100" onChange="changeOpacity2()" /><BR />
+    </div>
+
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+
+    </script>
+  </body>
+</html>
