@@ -12,8 +12,12 @@
     <script src="processMap.js" type="text/javascript"></script>
     <title>OpenLayers 3 example</title>
     <script>
-    pictureLayers = readPictureFile("pictures.json")
-    tileLayers = readMapFile("map.json")
+
+    // pictureLayers = readPictureFile("pictures.json")
+    readPictureFile("pictures.json");
+    console.log("aaaaaaa");
+    pictureLayers = pictureArrayTemp;
+    tileLayers = readMapFile("maps.json")
     // myLayers=saveTiles(tileLayers)
 
     function changeOpacity1() {
@@ -32,22 +36,21 @@
        pictures = document.getElementsByName('pic')
        for (var i=0;i<pictures.length;i++) {
            if (pictures[i].checked) {
-               myMap.changePicture(0,i)
-               document.getElementById('newOpacity1').value=100
-               b=a
-               a=i+6
-               document.getElementById("picture"+a).checked = false
-               document.getElementById("input"+a).style="color:lightgray"
-               document.getElementById("picture"+a).disabled=true
-               document.getElementById("picture"+b).disabled=false
-               document.getElementById("input"+b).style="color:black"
+               myMap.changePicture(0, i);
+               document.getElementById('newOpacity1').value=100;
+               b=a;
+               a=i+6;
+               document.getElementById("picture"+a).checked = false;
+               document.getElementById("input"+a).style="color:lightgray";
+               document.getElementById("picture"+a).disabled=true;
+               document.getElementById("picture"+b).disabled=false;
+               document.getElementById("input"+b).style="color:black";
           }
        }
     }
     //TODO
     c=4
     function togglePicture2() {
-
        pictures2 = document.getElementsByName('pic2')
        for (i=0;i<pictures2.length;i++) {
            if (pictures2[i].checked) {

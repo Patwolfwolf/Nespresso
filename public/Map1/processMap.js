@@ -1,4 +1,5 @@
-var myMap
+var myMap;
+var pictureArrayTemp;
 
 function saveTiles(tiles)
 {
@@ -45,53 +46,65 @@ function saveTiles(tiles)
 
     this.changePicture = function(section, picNum) {
       for (var j = 0; j < selectPicture.length; j++) {
-        if (selectPicture[j] != null) {
-          baseMap.removeLayer(selectPicture[j])
-        }
-    }
-      selectPicture[section] = pictureLayers[picNum]
-      for (var k = 0; k < selectPicture.length; k++) {
-        if (selectPicture[k] != null) {
-          baseMap.addLayer(selectPicture[k])
-        }
-      }
-      picLayer[section].setOpacity(100)
-    }
-      return this;
-    }
+          if (selectPicture != null) {
+            console.log("successfully added1");
+            baseMap.removeLayer(selectPicture)
+          }
+       }
+       readPictureFile("pictures.json");
+       console.log("hhhh");
+       console.log(pictureArrayTemp);
+       console.log(pictureArrayTemp[2]);
+        selectPicture = pictureArrayTemp[picNum];
+        // for (var k = 0; k < selectPicture.length; k++) {
+          if (selectPicture != null) {
+            console.log("successfully added");
+            baseMap.addLayer(selectPicture);
+          }
+        // }
+        selectPicture.setOpacity(100)
+     }
+  return this;
+}
 
 
-    function StamenMap (options) {
-        var label = options["label"]
-        var tl = new ol.layer.Tile({
-          source: new ol.source.Stamen({
-                  layer: label
-                })
-        })
-        return tl;
-    }
+function StamenMap (options) {
+    var label = options["label"]
+    var tl = new ol.layer.Tile({
+      source: new ol.source.Stamen({
+              layer: label
+            })
+    })
+    return tl;
+}
 
-    function XYZMap(options) {
-      var myUrl=options["url"]
-      var tl=new ol.layer.Tile({
-        source: new ol.source.XYZ({
-          url: myUrl,
-          opacity: true
-        })
-      })
-      return tl;
-    }
+function XYZMap(options) {
+  var myUrl=options["url"]
+  var tl=new ol.layer.Tile({
+    source: new ol.source.XYZ({
+      url: myUrl,
+      opacity: true
+    })
+  })
+  return tl;
+}
 
-    function PictureMap(options) {
-      var myUrl = options["url"]
-      var t1 = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-          url: myUrl,
-          opacity: true
-        })
-      })
-      return t1;
-    }
+function PictureMap(options) {
+  var myUrl = options["url"];
+  var myExtent = options["extent"];
+  console.log(myExtent);
+  var trueTrueExtent = ol.proj.transformExtent(myExtent, 'EPSG:4326','EPSG:3857');
+  console.log(trueTrueExtent);
+  var t1 = new ol.layer.Image({
+    source: new ol.source.ImageStatic({
+      url: myUrl,
+      opacity: true,
+      // imageExtent: ol.extent.applyTransform(myExtent, ol.proj.getTransform("EPSG:4326", "EPSG:3857"))
+      imageExtent: trueTrueExtent
+    })
+  })
+  return t1;
+}
 
     /*
     This function reads the object parsed from JSON.  Since JSON does not
@@ -100,58 +113,67 @@ function saveTiles(tiles)
     into this new object.  This "effectively" casts the object to the correct
     type.
     */
-    function getPicturesFromJSON(string) {
-      var pictures = new Array()
-      parsedArray = JSON.parse(string)
-      var length = parsedArray.length
-      for (var i = 0; i<length; i++) {
-        pictures[i] = PictureMap(parsedArray[i])
-      }
-      return pictures
-    }
-
-    function getMapsFromJSON(string) {
-      var maps = new Array()
-      parsedArray = JSON.parse(string)
-      var len1 = parsedArray.length
-      for (var i = 0; i < len1; i++){
-        maps[i] = new Array()
-        var len2 = parsedArray[i].length
-        for (var j = 0; j < len2; j++){
-            objType=parsedArray[i][j].instanceType
-            maps[i][j] = window[objType](parsedArray[i][j])
-          }
-      }
-      return maps
+function getPicturesFromJSON(string) {
+  var pictures = new Array();
+  parsedArray = JSON.parse(string);
+  var length = parsedArray.length;
+  console.log("aaa");
+  for (var i = 0; i<length; i++) {
+    console.log(parsedArray[i].url);
+    pictures[i] = PictureMap(parsedArray[i]);
+  }
+  console.log(pictures[2]);
+  return pictures;
 }
 
+function getMapsFromJSON(string) {
+  var maps = new Array();
+  parsedArray = JSON.parse(string);
+  var len1 = parsedArray.length;
+  for (var i = 0; i < len1; i++){
+    maps[i] = new Array();
+    var len2 = parsedArray[i].length;
+    for (var j = 0; j < len2; j++){
+        objType=parsedArray[i][j].instanceType;
+        maps[i][j] = window[objType](parsedArray[i][j]);
+      }
+  }
+  return maps;
+ }
+
 function readPictureFile(file) {
-  var rawFile = new XMLHttpRequest();
-  var url;
-  rawFile.open("GET", file, true);
-  rawFile.onreadystatechange = function () {
-    if(rawFile.readyState === 4) {
-      if(rawFile.status === 200 || rawFile.status == 0){
-        var allText = rawFile.responseText;
-        url = getPicturesFromJSON(allText)
-        return url;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", file, true);
+  xmlhttp.setRequestHeader("Content-Type", "application/json");
+  xmlhttp.onreadystatechange = function () {
+    if(xmlhttp.readyState === 4) {
+      if(xmlhttp.status === 200 || xmlhttp.status == 0){
+        var allText = xmlhttp.responseText;
+        // console.log("status =  " + xmlhttp.status + " text = "  + allText)
+        // console.log(allText);
+        var pictureArray = getPicturesFromJSON(allText);
+        pictureArrayTemp = pictureArray;
+        console.log(pictureArrayTemp[2]);
+        console.log("bbbb");
       }
     }
   }
-  rawFile.send();
+  xmlhttp.send();
 }
 
 function readMapFile(file){
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function (){
-      if(rawFile.readyState === 4){
-        if(rawFile.status === 200 || rawFile.status == 0){
-          var allText = rawFile.responseText;
-          var tiles = getMapsFromJSON(allText)
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", file, true);
+    xmlhttp.onreadystatechange = function (){
+      if(xmlhttp.readyState === 4){
+        if(xmlhttp.status === 200 || xmlhttp.status == 0){
+          var allText = xmlhttp.responseText;
+          // console.log("status =  " + xmlhttp.status + " text = "  + allText)
+          var tiles = getMapsFromJSON(allText);
+          // console.log(tiles);
           myMap = saveTiles(tiles)
         }
       }
     }
-    rawFile.send();
+    xmlhttp.send();
 }
