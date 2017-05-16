@@ -1,5 +1,5 @@
 var myMap;
-var pictureArrayTemp;
+var pictureArray;
 
 function viewerMap(tiles){
   var selectPicture = new Array(2)
@@ -51,7 +51,7 @@ function viewerMap(tiles){
       }
     }
     readPictureFile("pictures.json");
-    selectPicture[section] = pictureArrayTemp[picNum];
+    selectPicture[section] = pictureArray[picNum];
     for (var k = 0; k < selectPicture.length; k++) {
       if (selectPicture[k] != null) {
         console.log("successfully added");
@@ -140,8 +140,7 @@ function readPictureFile(file) {
     if(xmlhttp.readyState === 4) {
       if(xmlhttp.status === 200 || xmlhttp.status == 0){
         var allText = xmlhttp.responseText;
-        var pictureArray = getPicturesFromJSON(allText);
-        pictureArrayTemp = pictureArray;
+        pictureArray = getPicturesFromJSON(allText);
       }
     }
   }
