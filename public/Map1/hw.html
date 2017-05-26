@@ -2,121 +2,97 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
-  <style>
-  .map {
-    height: 800px;
-    width: 100%;
-  }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <link rel="stylesheet" href="hw.css" type="text/css">
   <script src="https://openlayers.org/en/v3.20.1/build/ol.js" type="text/javascript"></script>
   <script src="processMap.js" type="text/javascript"></script>
-  <title>OpenLayers 3 example</title>
-  <script>
+  <title>Gettysburg Map</title>
 
-  readPictureFile("pictures.json");
-  readMapFile("maps.json")
-
-  function changeOpacity1() {
-    opacityValue1 = document.getElementById("newOpacity1").value/100
-    myMap.changeOpacity(0,opacityValue1)
-
-  }
-
-  function changeOpacity2() {
-    opacityValue2 = document.getElementById("newOpacity2").value/100
-    myMap.changeOpacity(1,opacityValue2)
-  }
-  //TODO
-  a=1
-  function togglePicture() {
-    pictures = document.getElementsByName('pic')
-    for (var i=0;i<pictures.length;i++) {
-      if (pictures[i].checked) {
-        myMap.changePicture(0, i);
-        document.getElementById('newOpacity1').value=100;
-        b=a;
-        a=i+6;
-        document.getElementById("picture"+a).checked = false;
-        document.getElementById("input"+a).style="color:lightgray";
-        document.getElementById("picture"+a).disabled=true;
-        document.getElementById("picture"+b).disabled=false;
-        document.getElementById("input"+b).style="color:black";
-      }
-    }
-  }
-  //TODO
-  c=4
-  function togglePicture2() {
-    pictures2 = document.getElementsByName('pic2')
-    for (i=0;i<pictures2.length;i++) {
-      if (pictures2[i].checked) {
-        myMap.changePicture(1,i)
-        document.getElementById('newOpacity2').value=100
-        d=c
-        c=i+1
-        document.getElementById("picture"+c).checked = false
-        document.getElementById("input"+c).style="color:lightgray"
-        document.getElementById("picture"+c).disabled=true
-        document.getElementById("picture"+d).disabled=false
-        document.getElementById("input"+d).style="color:black"
-      }
-    }
-  }
-  </script>
 </head>
 <body>
-  <h2>My Map</h2>
-  <div id="chooseBaseMap" class="chooseMap" style="display: inline-block; text-align: middle; vertical-align:top">
-    Select the base map: <BR>
-      <input type='radio' name = "base" id='base1' checked onClick="myMap.changeMap(0);" /> Base Map 1<br>
-      <input type='radio' name = "base" id='base2' onClick="myMap.changeMap(1);" /> Base Map 2<br>
-      <input type='radio' name = "base" id='base3' onClick="myMap.changeMap(2);" /> Base Map 3<br>
-      <input type='radio' name = "base" id='base4' onClick="myMap.changeMap(3);" /> Base Map 4<br>
-    </div>
-    <div name="Map1" id="chooseMap1" class="chooseMap1" style="display: inline-block; text-align: middle; vertical-align:top">
-      Select map: <BR>
-        <div id="input1" >
-          <input type='radio' name = "pic" id='picture1' onClick="togglePicture();" /> Picture 1<br>
-        </div>
-        <div id="input2" >
-          <input type='radio' name = "pic" id='picture2' onClick="togglePicture();" /> Picture 2<br>
-        </div>
-        <div id="input3" >
-          <input type='radio' name = "pic" id='picture3' onClick="togglePicture();" /> Picture 3<br>
-        </div>
-        <div id="input4" >
-          <input type='radio' name = "pic" id='picture4' onClick="togglePicture();" /> Picture 4<br>
-        </div>
-        <div id="input5" >
-          <input type='radio' name = "pic" id='picture5' onClick="togglePicture();" /> Picture 5<br>
-        </div>
-        Opacity <br />
-        <input type="range" id="newOpacity1" value="100" min="0" max="100" onChange="changeOpacity1()" /><BR />
+  <div class="container">
+    <h2>Gettysburg Map Comparator</h2>
+    <div id="map" class="map">
+      <div class="baseMapToggle">
+        ImageSwiper
+        <label data-toggle="collapse" href="#collapseSwiper" aria-expanded="true" aria-controls="collapseSwiper">
+          <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+        </label><br>
       </div>
-      <div name="Map2" id="chooseMap2" class="chooseMap2" style="display: inline-block; text-align: middle; vertical-align:top">
-        Select map: <BR>
-          <div id="input6" >
-            <input type='radio' name = "pic2" id='picture6' onClick="togglePicture2();" /> Picture 1<br>
-          </div>
-          <div id="input7" >
-            <input type='radio' name = "pic2" id='picture7' onClick="togglePicture2();" /> Picture 2<br>
-          </div>
-          <div id="input8" >
-            <input type='radio' name = "pic2" id='picture8' onClick="togglePicture2();" /> Picture 3<br>
-          </div>
-          <div id="input9" >
-            <input type='radio' name = "pic2" id='picture9' onClick="togglePicture2();" /> Picture 4<br>
-          </div>
-          <div id="input10" >
-            <input type='radio' name = "pic2" id='picture10' onClick="togglePicture2();" /> Picture 5<br>
-          </div>
-          Opacity <br />
-          <input type="range" id="newOpacity2" value="100" min="0" max="100" onChange="changeOpacity2()" /><BR />
+      <div id = "collapseSwiper" aria-expanded="true" class="collapse in">
+        Inverse Direction
+        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini" id = "inverse"><br>
+        <input id="swipe" type="range" style="width: 100%" ></div>
+      </div>
+      <div class = "information">
+        Map info
+        <label data-toggle="collapse" href="#information" aria-expanded="true" aria-controls="information">
+          <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini" id = "mapInfoCheck">
+        </label><br>
+        <div id = "information"  aria-expanded="true" class="collapse in">
+        <div id = "mapInfo"></div><br>
+        <div id = "picInfo1"></div><br>
+        <div id = "picInfo2"></div><br>
+      </div>
+      </div>
+      <div class="baseMap">
+        Select the base map
+        <div class="baseMapToggle">
+          <label data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini" id = "mapCheck">
+          </label><br>
         </div>
-
-        <div id="map" class="map"></div>
-        <script type="text/javascript">
-
-        </script>
-      </body>
-      </html>
+        <div id="collapseOne" aria-expanded="true" class="collapse in">
+          <input type='radio' name = "base" id='base1' value = "0" checked /> Base Map 1<br>
+          <input type='radio' name = "base" id='base2' value = "1"/> Base Map 2<br>
+          <input type='radio' name = "base" id='base3' value = "2"/> Base Map 3<br>
+          <input type='radio' name = "base" id='base4' value = "3"/> Base Map 4<br>
+        </div>
+      </div>
+      <div class="pictureMap1" >
+        Select map 1
+        <div class="pictureCollapseOne">
+          <label data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <input type="checkbox" id = "checkbox1" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+          </label><br>
+        </div>
+        <div id="collapseTwo" aria-expanded="false" class="collapse">
+          <input type='radio' name = "pic" id='picture1' /> Picture 1<br>
+          <input type='radio' name = "pic" id='picture2' /> Picture 2<br>
+          <input type='radio' name = "pic" id='picture3' /> Picture 3<br>
+          <input type='radio' name = "pic" id='picture4' /> Picture 4<br>
+          <input type='radio' name = "pic" id='picture5' /> Picture 5<br>
+          <div class="opacity1">
+            Opacity <br/>
+            <input type="range" id="newOpacity1" value="100" min="0" max="100"/><br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="pictureMap2">
+        Select map 2
+        <div class="pictureCollapseTwo">
+          <label data-toggle="collapse" href="#collapseThree" aria-expanded="false" aira-controls="collapseThree">
+            <input type="checkbox" id = "checkbox2" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="mini">
+          </label><br>
+        </div>
+        <div id="collapseThree" aira-expanded="false" class="collapse">
+          <input type='radio' name = "pic2" id='picture6' /> Picture 1<br>
+          <input type='radio' name = "pic2" id='picture7' /> Picture 2<br>
+          <input type='radio' name = "pic2" id='picture8' /> Picture 3<br>
+          <input type='radio' name = "pic2" id='picture9' /> Picture 4<br>
+          <input type='radio' name = "pic2" id='picture10' /> Picture 5<br>
+          <div class="opacity2">
+            Opacity <br/>
+            <input type="range" id="newOpacity2" value="100" min="0" max="100"/><br/>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>

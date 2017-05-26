@@ -159,3 +159,17 @@
 [0515/144512.603:ERROR:process_reader_win.cc(233)] ReadMemory at 0x47b5000 of 45056 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0515/144512.603:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
 [0515/144512.605:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0519/100959.396:ERROR:process_info.cc(330)] VirtualQueryEx: Access is denied. (0x5)
+[0519/100959.399:ERROR:process_info.cc(547)] ReadMemoryInfo failed
+[0519/100959.399:ERROR:process_reader_win.cc(233)] ReadMemory at 0x5cc87598 of 12 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0519/100959.399:WARNING:process_snapshot_win.cc(68)] ReadMemory ExceptionInformation failed
+[0519/100959.399:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
+[0519/100959.399:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0519/101952.479:ERROR:process_reader_win.cc(233)] ReadMemory at 0x58124f4 of 512 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0519/101952.479:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
+[0519/101952.481:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0519/101952.496:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0519/101952.501:ERROR:process_reader_win.cc(233)] ReadMemory at 0xaa4140 of 152 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0519/101952.501:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
+[0519/101952.502:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0519/101952.505:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)

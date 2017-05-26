@@ -1,46 +1,103 @@
 [
   [
-    {
-      "instanceType":"StamenMap",
-      "label":"watercolor"
-    },
-    {
-      "instanceType":"StamenMap",
-      "label":"terrain-lines"
-    },
-    {
-      "instanceType":"StamenMap",
-      "label":"terrain-labels"
-    }
+    [
+      {
+        "instanceType":"StamenMap",
+        "label":"watercolor",
+        "title": "title of map1",
+        "desciption" : "desciption of map1",
+        "author" : "author of map1"
+      },
+      {
+        "instanceType":"StamenMap",
+        "label":"terrain-lines"
+      },
+      {
+        "instanceType":"StamenMap",
+        "label":"terrain-labels"
+      }
+    ],
+    [
+      {
+        "instanceType":"XYZMap",
+        "url":"https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "title": "title of map2",
+        "desciption" : "desciption of map2",
+        "author" : "author of map2"
+      }
+    ],
+    [
+      {
+        "instanceType":"StamenMap",
+        "label": "terrain-background",
+        "title": "title of map3",
+        "desciption" : "desciption of map3",
+        "author" : "author of map3"
+      },
+      {
+        "instanceType":"StamenMap",
+        "label":"terrain-lines"
+      },
+      {
+        "instanceType":"StamenMap",
+        "label":"terrain-labels"
+      }
+    ],
+    [
+      {
+        "instanceType":"StamenMap",
+        "label": "toner-hybrid",
+        "title": "title of map4",
+        "desciption" : "desciption of map4",
+        "author" : "author of map4"
+      },
+      {
+        "instanceType":"StamenMap",
+        "label": "toner-labels"
+      }
+    ]
   ],
   [
     {
-      "instanceType":"XYZMap",
-      "url":"https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    }
-  ],
-  [
-    {
-      "instanceType":"StamenMap",
-      "label": "terrain-background"    
+      "url":"picture1.jpg",
+      "title": "picture 1",
+      "extent":[-77.27, 39.87, -77.20, 39.77],
+      "center":[-77.23, 39.83],
+      "title": "title of picture1",
+      "desciption" : "desciption of picture1",
+      "author" : "author of picture1"
     },
     {
-      "instanceType":"StamenMap",
-      "label":"terrain-lines"
+      "url":"picture2.jpg",
+      "title": "picture 2",
+      "extent": [-77.27, 39.85, -77.21, 39.80],
+      "title": "title of picture2",
+      "desciption" : "desciption of picture2",
+      "author" : "author of picture2"
     },
     {
-      "instanceType":"StamenMap",
-      "label":"terrain-labels"
-    }
-  ],
-  [
-    {
-      "instanceType":"StamenMap",
-      "label": "toner-hybrid"
+      "url":"picture3.jpg",
+      "title": "picture 3",
+      "extent":[-77.27, 39.85, -77.19, 39.78],
+      "title": "title of picture3",
+      "desciption" : "desciption of picture3",
+      "author" : "author of picture3"
     },
     {
-      "instanceType":"StamenMap",
-      "label": "toner-labels"
+      "url":"picture4.jpg",
+      "title": "picture 4",
+      "extent":[-77.27, 39.85, -77.21, 39.77],
+      "title": "title of picture4",
+      "desciption" : "desciption of picture4",
+      "author" : "author of picture4"
+    },
+    {
+      "url":"picture5.jpg",
+      "title": "picture 5",
+      "extent":[-77.27, 39.86, -77.19, 39.77],
+      "title": "title of picture5",
+      "desciption" : "desciption of picture5",
+      "author" : "author of picture5"
     }
   ]
 ]
