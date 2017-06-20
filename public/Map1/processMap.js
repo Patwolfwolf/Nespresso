@@ -1,11 +1,13 @@
 
 window.onload = function(){
+  readFileFromDB();
   preLoad();
 }
 
 var myMap;
 
-readMapFile("maps.json");
+// readMapFile("maps.json");
+// readFileFromDB();
 
 function preLoad(){
   document.getElementById("inverse").onchange = reloadAllPic;
@@ -281,6 +283,7 @@ function PictureMap(options) {
   var myUrl = options["url"];
   var myExtent = options["extent"];
   var trueTrueExtent = ol.proj.transformExtent(myExtent, 'EPSG:4326','EPSG:3857');
+  console.log(myExtent);
   var t1 = new ol.layer.Image({
     source: new ol.source.ImageStatic({
       url: myUrl,
@@ -321,19 +324,44 @@ function parseToArrayMap(inputArray) {
   return maps;
 }
 
-function readMapFile(file){
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", file, true);
-  xmlhttp.onreadystatechange = function (){
-    if(xmlhttp.readyState === 4){
-      if(xmlhttp.status === 200 || xmlhttp.status == 0){
-        var allText = xmlhttp.responseText;
-        var parsedAllText = JSON.parse(allText);
-        var tiles = parseToArrayMap(parsedAllText[0]);
-        var pictureTilesArray = parseToArrayPic(parsedAllText[1]);
-        myMap = viewerMap(tiles, parsedAllText[0], pictureTilesArray, parsedAllText[1]);
-      }
+// function readMapFile(file){
+//   var xmlhttp = new XMLHttpRequest();
+//   xmlhttp.open("GET", file, true);
+//   xmlhttp.onreadystatechange = function (){
+//     if(xmlhttp.readyState === 4){
+//       if(xmlhttp.status === 200 || xmlhttp.status == 0){
+//         var allText = xmlhttp.responseText;
+//         var parsedAllText = JSON.parse(allText);
+//         var tiles = parseToArrayMap(parsedAllText[0]);
+//         var pictureTilesArray = parseToArrayPic(parsedAllText[1]);
+//         myMap = viewerMap(tiles, parsedAllText[0], pictureTilesArray, parsedAllText[1]);
+//       }
+//     }
+//   }
+//   xmlhttp.send();
+// }
+
+function readFileFromDB() {
+    var xmlhttp = new XMLHttpRequest();
+    var url = "/articles.json"
+    xmlhttp.open("GET", url, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onreadystatechange = function (){
+        if(xmlhttp.readyState === 4){
+            if(xmlhttp.status === 200){
+                var allText = xmlhttp.responseText;
+                var parsedAllText = JSON.parse(allText);
+                var current = parsedAllText[parsedAllText.length - 1];
+                console.log(current)
+                var tiles = parseToArrayMap(JSON.parse(current["map"]));
+                var pictureTilesArray = parseToArrayPic(JSON.parse(current["picture"]));
+                myMap = viewerMap(tiles, JSON.parse(current["map"]), pictureTilesArray, JSON.parse(current["picture"]));
+            }
+            else{
+                var allText = xmlhttp.responseText;
+                console.log("status =  " + xmlhttp.status + " text = "  + allText)
+            }
+        }
     }
-  }
-  xmlhttp.send();
+    xmlhttp.send();
 }

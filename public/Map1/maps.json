@@ -63,7 +63,6 @@
       "title": "picture 1",
       "extent":[-77.27, 39.87, -77.20, 39.77],
       "center":[-77.23, 39.83],
-      "title": "title of picture1",
       "desciption" : "desciption of picture1",
       "author" : "author of picture1"
     },
@@ -71,7 +70,6 @@
       "url":"picture2.jpg",
       "title": "picture 2",
       "extent": [-77.27, 39.85, -77.21, 39.80],
-      "title": "title of picture2",
       "desciption" : "desciption of picture2",
       "author" : "author of picture2"
     },
@@ -79,7 +77,6 @@
       "url":"picture3.jpg",
       "title": "picture 3",
       "extent":[-77.27, 39.85, -77.19, 39.78],
-      "title": "title of picture3",
       "desciption" : "desciption of picture3",
       "author" : "author of picture3"
     },
@@ -87,7 +84,6 @@
       "url":"picture4.jpg",
       "title": "picture 4",
       "extent":[-77.27, 39.85, -77.21, 39.77],
-      "title": "title of picture4",
       "desciption" : "desciption of picture4",
       "author" : "author of picture4"
     },
@@ -95,7 +91,6 @@
       "url":"picture5.jpg",
       "title": "picture 5",
       "extent":[-77.27, 39.86, -77.19, 39.77],
-      "title": "title of picture5",
       "desciption" : "desciption of picture5",
       "author" : "author of picture5"
     }
