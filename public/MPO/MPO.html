@@ -82,6 +82,7 @@
       units: 'us'
     })
   );
+      readArticle();
 });
   var mapData =   [
       [
@@ -154,29 +155,31 @@
       <h1>Map Picture Overlay <br> Application</h1>
       </div>
       <div id="appMenu">
-        <br><br><button id = "saveToDB" onclick = saveToFile()>save</button>    file home
+        <br><br>
+        <!--<button id = "saveToDB" onclick = saveToFile()>save</button> -->
+        file home
       </div>
     </div>
 
     <div id="mainWindow" style="overflow-y:scroll">
       <div id="applicationOptions">
-        <div style="margin: 6px; border: solid black 2px; padding:6px;">
-          Background Map
-          <image id="mapOptionsSet" src="checkbox_unchecked.png" />
-          <label class="switch">
-            <input type="checkbox" id="mapOptionsBox" onChange="showMapOptions();">
-            <div class="slider round"></div>
-          </label>
+        <!--<div style="margin: 6px; border: solid black 2px; padding:6px;">-->
+          <!--Background Map-->
+          <!--<image id="mapOptionsSet" src="checkbox_unchecked.png" />-->
+          <!--<label class="switch">-->
+            <!--<input type="checkbox" id="mapOptionsBox" onChange="showMapOptions();">-->
+            <!--<div class="slider round"></div>-->
+          <!--</label>-->
 
-          <div id="mapOptions" style="display:none;">
+          <!--<div id="mapOptions" style="display:none;">-->
 
-            <p id="mapOptionsText">Set the background map you wish to use, and press the save
-              button.  </p>
+            <!--<p id="mapOptionsText">Set the background map you wish to use, and press the save-->
+              <!--button.  </p>-->
 
-              <input type="button" id="mapOptionsButton" value="Save" onClick="saveMapOptions()" />
-              <input type="button" id="mapOptionsAdvanced" value="Advanced" onClick="alert('tdb')" />
-            </div>
-          </div>
+              <!--<input type="button" id="mapOptionsButton" value="Save" onClick="saveMapOptions()" />-->
+              <!--<input type="button" id="mapOptionsAdvanced" value="Advanced" onClick="alert('tdb')" />-->
+            <!--</div>-->
+          <!--</div>-->
 
           <div id="mapImageControlPanel" style="border: solid black 2px; display:none; margin:6px;">
             Edit/Show Image
@@ -213,7 +216,7 @@
             </div>
           </div>
 
-          <div id="mapImages" style="margin: 6px; border: solid black 2px; padding: 6px; height:235px; overflow-y: scroll">
+          <div id="mapImages" style="margin: 6px; border: solid black 2px; padding: 6px; height:675px; overflow-y: scroll">
             Images
             <label class="switch">
               <input type="checkbox" id="mapImagesBox" onChange="showImagesOptions();">
@@ -221,8 +224,8 @@
             </label>
 
             <div id="mapImages_Images" style="display:none">
-              <p id="mapImagesText">You cannot add images until the map is set </p>
-              <input type="button" id="mapAddImagesButton" value="Add Image" disabled onClick="showImageControlPanel(-1)";>
+              <!--<p id="mapImagesText">You cannot add images until the map is set </p>-->
+              <br><input type="button" id="mapAddImagesButton" value="Add Image" onClick="showImageControlPanel(-1)";>
             </div>
           </div>
         </div>
